@@ -1,21 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Box, 
-  Container, 
-  Typography, 
-  TextField, 
-  Button, 
-  Card, 
-  CardContent, 
-  Grid, 
-  List, 
-  ListItem, 
-  ListItemText, 
-  ListItemSecondaryAction, 
-  IconButton, 
-  Divider, 
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  GridLegacy as Grid,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+  Divider,
   Alert,
   CircularProgress,
   Paper,
@@ -183,7 +183,7 @@ export default function AdminPage() {
             }}
           >
             <Grid container spacing={3} alignItems="flex-end">
-              <Grid item xs={12} md={5}>
+              <Grid item component="div" xs={12} md={5}>
                 <Typography variant="subtitle2" gutterBottom sx={{ fontWeight: 600, color: 'text.secondary', ml: 1 }}>
                   ADMIN SECRET
                 </Typography>
@@ -204,7 +204,7 @@ export default function AdminPage() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={5}>
+              <Grid item component="div" xs={12} md={5}>
                 <Typography variant="subtitle2" gutterBottom sx={{ fontWeight: 600, color: 'text.secondary', ml: 1 }}>
                   TARGET DOMAIN
                 </Typography>
@@ -224,7 +224,7 @@ export default function AdminPage() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={2}>
+              <Grid xs={12} md={2}>
                 <Button
                   fullWidth
                   variant="contained"
@@ -258,7 +258,7 @@ export default function AdminPage() {
           <Fade in={isLoggedIn} timeout={1000}>
             <Grid container spacing={4}>
               {/* Backend Config */}
-              <Grid item xs={12} md={6}>
+              <Grid xs={12} md={6}>
                 <Card 
                   elevation={0} 
                   sx={{ 
@@ -346,7 +346,7 @@ export default function AdminPage() {
               </Grid>
 
               {/* Access Control */}
-              <Grid item xs={12} md={6}>
+              <Grid xs={12} md={6}>
                 <Card 
                   elevation={0} 
                   sx={{ 

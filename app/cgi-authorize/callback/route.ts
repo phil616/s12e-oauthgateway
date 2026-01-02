@@ -37,7 +37,11 @@ export async function GET(req: NextRequest) {
     // In production, sync system time properly.
     
     // Manually fetch token to bypass strict validation in client.callback
-    const tokenResponse = await fetch(issuer.token_endpoint!, {
+    const tokenEndpoint = issuer.token_endpoint;
+    if (!tokenEndpoint || typeof tokenEndpoint !== 'string') {
+      throw new Error('Invalid token endpoint');
+    }
+    const tokenResponse = await fetch(tokenEndpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
