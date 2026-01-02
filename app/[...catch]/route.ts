@@ -6,7 +6,7 @@ type GatewayConfig = { origin: string; secret?: string; host_header?: string };
 
 async function handler(req: NextRequest) {
   const host = req.headers.get('host') || '';
-  
+
   // 1. Try to read config from Cookie Cache (Encrypted JWE)
   let config: GatewayConfig | null = null;
   const configCacheToken = req.cookies.get('gw_config_cache')?.value;
@@ -37,7 +37,7 @@ async function handler(req: NextRequest) {
   targetUrl.protocol = originUrl.protocol;
   targetUrl.host = originUrl.host;
   targetUrl.port = originUrl.port;
-  
+
   // Prepare headers
   const headers = new Headers(req.headers);
   // Use configured host_header if present, otherwise default to origin's host
@@ -69,7 +69,7 @@ async function handler(req: NextRequest) {
     if (shouldSetCookie && config) {
       const payload = { host, config };
       const token = await encryptConfig(payload);
-      
+
       response.cookies.set('gw_config_cache', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
