@@ -1,5 +1,10 @@
 # EdgeOne OAuth Gateway
 
+<p align="center">
+  <a href="https://github.com/dreamreflex/serverlesslize">
+    <img src="https://img.shields.io/badge/dreamreflex-serverless-blue" width="150"></a>
+</p>
+
 一个基于 Next.js 的轻量级 OAuth 网关，专为 EdgeOne Serverless 环境设计。它能够为您的私有源站提供安全的身份验证保护，支持多域名管理、动态配置和零延迟缓存。
 
 ## 特性
