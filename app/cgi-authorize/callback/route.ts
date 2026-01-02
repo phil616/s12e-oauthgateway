@@ -3,6 +3,8 @@ import { Issuer } from 'openid-client';
 import { signSession } from '@/lib/auth';
 import { getKV } from '@/lib/kv';
 
+export const runtime = 'nodejs';
+
 const OAUTH_DISCOVERY_URL = process.env.OAUTH_DISCOVERY_URL || 'https://accounts.google.com/.well-known/openid-configuration';
 const CLIENT_ID = process.env.CLIENT_ID || 'client-id';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || 'client-secret';
@@ -10,12 +12,12 @@ const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3000/cgi-auth
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = req.nextUrl;
     const code = searchParams.get('code');
     const state = searchParams.get('state') || '/'; // This is our original redirect_url
 
     if (!code) {
-      const errorUrl = new URL('/cgi-authorize/error', req.url);
+      const errorUrl = new URL('/cgi-authorize/error', req.nextUrl.origin);
       errorUrl.searchParams.set('message', 'Missing authorization code');
       return NextResponse.redirect(errorUrl);
     }
@@ -64,7 +66,7 @@ export async function GET(req: NextRequest) {
     const email = userInfo.email;
 
     if (!email) {
-      const errorUrl = new URL('/cgi-authorize/error', req.url);
+      const errorUrl = new URL('/cgi-authorize/error', req.nextUrl.origin);
       errorUrl.searchParams.set('message', 'No email provided by Identity Provider');
       return NextResponse.redirect(errorUrl);
     }
@@ -90,7 +92,7 @@ export async function GET(req: NextRequest) {
     const acl = (await getKV<string[]>(aclKey)) || [];
 
     if (!acl.includes(email)) {
-       return NextResponse.redirect(new URL('/cgi-authorize/forbidden', req.url));
+       return NextResponse.redirect(new URL('/cgi-authorize/forbidden', req.nextUrl.origin));
     }
 
     // Issue JWT
@@ -109,7 +111,7 @@ export async function GET(req: NextRequest) {
 
   } catch (error: any) {
     console.error('Callback Error:', error);
-    const errorUrl = new URL('/cgi-authorize/error', req.url);
+    const errorUrl = new URL('/cgi-authorize/error', req.nextUrl.origin);
     errorUrl.searchParams.set('message', error.message || 'Unknown error');
     return NextResponse.redirect(errorUrl);
   }

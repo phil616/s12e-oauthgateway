@@ -31,7 +31,7 @@ async function handler(req: NextRequest) {
     return new NextResponse(`Domain ${host} is not configured in Gateway.`, { status: 502 });
   }
 
-  const targetUrl = new URL(req.url);
+  const targetUrl = new URL(req.nextUrl.href);
   // Replace origin with target origin
   const originUrl = new URL(config.origin);
   targetUrl.protocol = originUrl.protocol;
@@ -83,8 +83,8 @@ async function handler(req: NextRequest) {
   } catch (error) {
     console.error('Proxy Error:', error);
     // Redirect to static offline page
-    const offlineUrl = new URL('/cgi-authorize/offline', req.url);
-    offlineUrl.searchParams.set('retry_url', req.url);
+    const offlineUrl = new URL('/cgi-authorize/offline', req.nextUrl.origin);
+    offlineUrl.searchParams.set('retry_url', req.nextUrl.href);
     return NextResponse.redirect(offlineUrl);
   }
 }

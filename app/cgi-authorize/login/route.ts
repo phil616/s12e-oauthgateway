@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Issuer } from 'openid-client';
 
+export const runtime = 'nodejs';
+
 const OAUTH_DISCOVERY_URL = process.env.OAUTH_DISCOVERY_URL || 'https://accounts.google.com/.well-known/openid-configuration';
 const CLIENT_ID = process.env.CLIENT_ID || 'client-id';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || 'client-secret';
@@ -8,7 +10,7 @@ const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3000/cgi-auth
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = req.nextUrl;
     const redirectUrl = searchParams.get('redirect_url') || '/';
 
     const issuer = await Issuer.discover(OAUTH_DISCOVERY_URL);

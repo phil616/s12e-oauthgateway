@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getKV, putKV } from '@/lib/kv';
 
+export const runtime = 'nodejs';
+
 const ADMIN_SECRET = process.env.ADMIN_SECRET || 'admin-secret-123';
 
 function checkAuth(req: NextRequest) {
@@ -16,7 +18,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { searchParams } = new URL(req.url);
+  const { searchParams } = req.nextUrl;
   const domain = searchParams.get('domain');
 
   if (!domain) {
