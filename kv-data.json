@@ -1,0 +1,19 @@
+{
+  "domain_acl:localhost:3000": [
+    "phil616@163.com",
+    "dreamreflex@greenshadecapital.com"
+  ],
+  "domain_config:localhost:3000": {
+    "origin": "http://localhost:880",
+    "secret": "",
+    "host_header": ""
+  },
+  "domain_acl:localhost": [
+    "dreamreflex@greenshadecapital.com"
+  ],
+  "domain_config:localhost": {
+    "origin": "http://localhost:880",
+    "secret": "",
+    "host_header": ""
+  }
+}
