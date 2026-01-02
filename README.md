@@ -2,7 +2,7 @@
 
 一个基于 Next.js 的轻量级 OAuth 网关，专为 EdgeOne Serverless 环境设计。它能够为您的私有源站提供安全的身份验证保护，支持多域名管理、动态配置和零延迟缓存。
 
-## 🌟 特性
+## 特性
 
 *   **OAuth 2.0 集成**：支持 Google、GitHub 等标准 OIDC 提供商。
 *   **多域名支持**：单个网关实例可同时保护多个不同的域名/子域名。
@@ -16,7 +16,7 @@
     *   现代化的 Material UI 管理面板。
     *   全套静态化的错误提示页面（403 Forbidden, 502 Bad Gateway, Auth Required）。
 
-## 🛠 工作机制
+## 工作机制
 
 ### 1. 请求拦截与认证
 当用户访问受保护的域名（如 `app.example.com`）时：
@@ -53,7 +53,7 @@
 2.  **转发流量**：流式转发请求体和响应体，支持各种 HTTP 方法。
 3.  **错误处理**：如果源站不可达，自动重定向至静态的 `/cgi-authorize/offline` 页面。
 
-## 🚀 部署指南
+## 部署指南
 
 ### 环境变量
 在 EdgeOne 或 `.env.local` 中配置：
@@ -83,7 +83,7 @@ KV_API_KEY=your-kv-api-key
     *   **Edge Key**: (可选) 与源站约定的共享密钥。
 3.  **Access Control**：添加允许访问的邮箱地址。
 
-## 📦 技术栈
+## 技术栈
 
 *   **框架**: Next.js 14 (App Router)
 *   **语言**: TypeScript
@@ -91,6 +91,6 @@ KV_API_KEY=your-kv-api-key
 *   **加密**: jose (JWT/JWE)
 *   **部署**: Tencent Cloud EdgeOne / Vercel
 
-## 📄 License
+## License
 
 MIT
